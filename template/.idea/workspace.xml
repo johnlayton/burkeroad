@@ -63,6 +63,7 @@
     <favorites_list name="template" />
   </component>
   <component name="FileEditorManager">
+    <!--
     <leaf>
       <file leaf-file-name="workspace.xml" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/.idea/workspace.xml">
@@ -74,6 +75,7 @@
         </entry>
       </file>
     </leaf>
+    -->
   </component>
   <component name="FindManager">
     <FindUsagesManager>

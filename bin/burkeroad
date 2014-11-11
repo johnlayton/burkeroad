@@ -58,14 +58,16 @@ var generate = function ( dir ) {
 //} );
 generate( templates );
 
-//var open = child.spawn( "open", [".idea", "-a", "Intellij IDEA 13" ] );
-var open = child.spawn( "open", [".", "-a", "Intellij IDEA 13" ] );
+setTimeout( function() {
+  //var open = child.spawn( "open", [".idea", "-a", "Intellij IDEA 13" ] );
+  var open = child.spawn( "open", [".", "-a", "Intellij IDEA 13" ] );
 
-//var open =
-open.stdout.on('data', function (data) {
-  console.log('stdout: ' + data);
-});
+  //var open =
+  open.stdout.on('data', function (data) {
+    console.log('stdout: ' + data);
+  });
 
-//open.stderr.on('data', function (data) {
-//  console.log('stdout: ' + data);
-//});
+  //open.stderr.on('data', function (data) {
+  //  console.log('stdout: ' + data);
+  //});
+}, 2000 );
