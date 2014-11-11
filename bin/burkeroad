@@ -1,0 +1,68 @@
+#!/usr/bin/env node
+
+'use strict';
+
+var child = require( 'child_process' ),
+     path = require( 'path' ),
+ mustache = require( 'mustache' ),
+       fs = require( 'fs' );
+
+var templates = path.join( path.resolve( __dirname ), "..", "template" );
+//var output = path.join( path.resolve( __dirname ), "..", "test" );
+var output = process.cwd();
+
+var model = {
+  name : path.basename( process.cwd() )
+};
+
+var generate = function ( dir ) {
+  fs.readdir( dir, function ( err, files ) {
+    files.forEach( function ( file ) {
+      var f = path.join( path.resolve( dir ), file );
+      var o = path.join( output, path.relative( templates, mustache.render( f, model ) ) );
+      fs.stat( f, function ( err, stat ) {
+        if ( stat.isDirectory() ) {
+          fs.mkdir( o, function ( err ) {
+            if ( err ) {
+              throw err;
+            } else {
+              generate( f );
+            }
+          } );
+        }
+        else if ( o.match( /.*\.xml/ ) || o.match( /.*\.iml/ ) || o.match( /\.name/ ) ) {
+          fs.readFile( f, function ( err, template ) {
+            fs.writeFile( o, mustache.render( template.toString(), model ), function ( err ) {
+              if ( err ) {
+                throw err;
+              }
+            } );
+          } );
+        }
+        else {
+          console.log( "What ..." );
+        }
+      } )
+    } )
+  } );
+};
+
+//fs.mkdir( output, function( err ) {
+//  if ( err ) {
+//    console.log( err );
+//  } else {
+//    generate( templates );
+//  }
+//} );
+generate( templates );
+
+child.spawn( "open", [".idea", "-a", "Intellij IDEA 13" ] );
+
+//var open =
+//open.stdout.on('data', function (data) {
+//  console.log('stdout: ' + data);
+//});
+//
+//open.stderr.on('data', function (data) {
+//  console.log('stdout: ' + data);
+//});
