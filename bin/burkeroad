@@ -20,6 +20,8 @@ var generate = function ( dir ) {
     files.forEach( function ( file ) {
       var f = path.join( path.resolve( dir ), file );
       var o = path.join( output, path.relative( templates, mustache.render( f, model ) ) );
+
+      console.log( "Create File : " + o );
       fs.stat( f, function ( err, stat ) {
         if ( stat.isDirectory() ) {
           fs.mkdir( o, function ( err ) {
@@ -56,13 +58,14 @@ var generate = function ( dir ) {
 //} );
 generate( templates );
 
-child.spawn( "open", [".idea", "-a", "Intellij IDEA 13" ] );
+//var open = child.spawn( "open", [".idea", "-a", "Intellij IDEA 13" ] );
+var open = child.spawn( "open", [".", "-a", "Intellij IDEA 13" ] );
 
 //var open =
-//open.stdout.on('data', function (data) {
-//  console.log('stdout: ' + data);
-//});
-//
+open.stdout.on('data', function (data) {
+  console.log('stdout: ' + data);
+});
+
 //open.stderr.on('data', function (data) {
 //  console.log('stdout: ' + data);
 //});
