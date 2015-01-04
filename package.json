@@ -1,16 +1,16 @@
 {
-  "name": "burkeroad",
-  "version": "0.0.0",
-  "description": "bootstrap a new node app",
-  "main": "burkeroad-server.js",
-  "scripts": {
+  "name"        : "burkeroad",
+  "version"     : "0.0.1",
+  "description" : "bootstrap a new node app",
+  "main"        : "burkeroad-server.js",
+  "scripts"     : {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "bin": {
+  "bin"         : {
     "burkeroad": "./bin/burkeroad"
   },
-  "author": "jonstewartlayton@gmail.com",
-  "license": "BSD",
+  "author"      : "jonstewartlayton@gmail.com",
+  "license"     : "BSD",
   "dependencies": {
     "mustache": "^0.8.2"
   }
