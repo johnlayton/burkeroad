@@ -25,7 +25,7 @@ var usingModel = function( callback ) {
 var generate = function ( dir ) {
   usingModel( function( err, model ) {
 
-    console.log( model );
+//    console.log( model );
 
     fs.readdir( dir, function ( err, files ) {
       files.forEach( function ( file ) {
@@ -54,7 +54,7 @@ var generate = function ( dir ) {
               } );
             } );
           } else {
-            console.log( "What ..." );
+//            console.log( "What ..." );
           }
         } );
       } );
@@ -77,9 +77,9 @@ setTimeout( function() {
   var open = child.spawn( "open", [".", "-a", "Intellij IDEA 14" ] );
 
   //var open =
-  open.stdout.on('data', function (data) {
-    console.log('stdout: ' + data);
-  });
+  //open.stdout.on('data', function (data) {
+  //  console.log('stdout: ' + data);
+  //});
 
   //open.stderr.on('data', function (data) {
   //  console.log('stdout: ' + data);
