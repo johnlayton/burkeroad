@@ -32,7 +32,7 @@ var generate = function ( dir ) {
         var f = path.join( path.resolve( dir ), file );
         var o = path.join( output, path.relative( templates, mustache.render( f, model ) ) );
 
-        console.log( "Create File : " + o );
+        //console.log( "Create File : " + o );
 
         fs.stat( f, function ( err, stat ) {
           if (err ) {
