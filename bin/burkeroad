@@ -20,7 +20,7 @@ var usingModel = function( callback ) {
       callback(undefined, { name : name, vcs  : '' } );
     }
   } );
-}
+};
 
 var generate = function ( dir ) {
   usingModel( function( err, model ) {
