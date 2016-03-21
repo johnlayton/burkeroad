@@ -10,7 +10,7 @@
     "burkeroad": "./bin/burkeroad"
   },
   "author"      : "jonstewartlayton@gmail.com",
-  "license"     : "BSD",
+  "license"     : "MIT",
   "dependencies": {
     "mustache": "^0.8.2"
   }
