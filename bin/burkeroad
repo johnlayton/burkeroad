@@ -7,7 +7,6 @@ var child = require( 'child_process' ),
        fs = require( 'fs' );
 
 var templates = path.join( path.resolve( __dirname ), "..", "templates" );
-//var output = path.join( path.resolve( __dirname ), "..", "output" );
 var output = process.cwd();
 
 var usingModel = function( callback ) {
@@ -22,38 +21,55 @@ var usingModel = function( callback ) {
 };
 
 var generate = function ( dir ) {
+
   usingModel( function( err, model ) {
 
-//    console.log( model );
-
     fs.readdir( dir, function ( err, files ) {
+
       files.forEach( function ( file ) {
         var f = path.join( path.resolve( dir ), file );
         var o = path.join( output, path.relative( templates, mustache.render( f, model ) ) );
 
-        //console.log( "Create File : " + o );
-
-        fs.stat( f, function ( err, stat ) {
+        fs.stat( f, function ( err, fstat ) {
           if (err ) {
+
             console.log( err );
-          } if ( stat.isDirectory() ) {
-            fs.mkdir( o, function ( err ) {
-              if ( err ) {
-                throw err;
+
+          }
+          if ( fstat.isDirectory() ) {
+
+            fs.stat( o, function(err, ostat){
+
+              if (ostat && ostat.isDirectory() ) {
+
+                 generate(f);
+
               } else {
-                generate( f );
+                  fs.mkdir(o, function (err) {
+                      if (err) {
+                          console.log(err);
+                          throw err;
+                      } else {
+                          generate(f);
+                      }
+                  });
               }
-            } );
+
+            });
+
           } else if ( o.match( /.*\.xml/ ) || o.match( /.*\.iml/ ) || o.match( /\.name/ ) ) {
+
             fs.readFile( f, function ( err, template ) {
               fs.writeFile( o, mustache.render( template.toString(), model ), function ( err ) {
                 if ( err ) {
+
                   throw err;
+
                 }
               } );
             } );
+
           } else {
-//            console.log( "What ..." );
           }
         } );
       } );
@@ -61,26 +77,8 @@ var generate = function ( dir ) {
   } );
 };
 
-//fs.mkdir( output, function( err ) {
-//  if ( err ) {
-//    console.log( err );
-//  } else {
-//    generate( templates );
-//  }
-//} );
-
 generate( templates );
 
 setTimeout( function() {
-  //var open = child.spawn( "open", [".idea", "-a", "Intellij IDEA 13" ] );
-  var open = child.spawn( "open", [".", "-a", "Intellij IDEA 14" ] );
-
-  //var open =
-  //open.stdout.on('data', function (data) {
-  //  console.log('stdout: ' + data);
-  //});
-
-  //open.stderr.on('data', function (data) {
-  //  console.log('stdout: ' + data);
-  //});
+  var open = child.spawn( "open", [".", "-a", "Intellij IDEA" ] );
 }, 2000 );
